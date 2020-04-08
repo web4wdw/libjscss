@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta http-equiv="x-ua-compatible" content="IE=edge">
+
+<title>tmpl</title>
+
+
+
+
+
+
+<style type="text/css">
+html,body {
+	background-color: #fff;
+}
+
+body {
+	margin: 20px;
+}
+
+
+</style>
+
+
+</head>
+
+<body>
+
+<pre id="html">
+</pre>
+
+<script type="text/javascript" src="tmpl.js"></script>
+
+
+
+<script id='test' type="text/tmpl">
+
+	one ' one \ one <%= wdw %>
+	<% for (var i = 0; i < 3; ++i) { %>
+		loop: <%= i %>
+		wdw
+		wdw<%
+			var str = "one'two" + 'three' + '\r\nNL';
+			console.log(str);
+		%>
+	<% } %>
+	two " two
+</script>
+
+
+<script id='test2' type="text/tmpl">
+
+	one ' one \ one <%= wdw %>
+		<%
+			var str = "onetwo" + "three" + "\r\nNL";
+			console.log(str);
+		%>
+	two " two
+</script>
+
+
+
+<script type="text/javascript">
+
+	var text = function(elem, text) {
+		while ( elem.firstChild ) { elem.removeChild( elem.firstChild );}
+		elem.appendChild(elem.ownerDocument.createTextNode(text));
+	};
+
+	var str = "wdw abc wdw abc wdw abc".replace(/wdw/g, function() {
+	  console.log("one");
+	  return "one";
+	  
+	});
+	console.log(str);
+	
+	var html = "";
+	var obj = {
+			wdw: "i am wdw",
+
+			last: "last one"
+		};
+
+	//html = txTpl("test2", obj);
+	html = tmpl("test", obj);
+	console.log("html: \n" + html);
+	var el = document.getElementById("html");
+	text(el, html.replace(/\n/g, "\r\n"));
+
+</script>
+
+
+
+
+
+
+</body>
+</html>

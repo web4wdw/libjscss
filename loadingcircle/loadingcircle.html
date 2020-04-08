@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta http-equiv="x-ua-compatible" content="IE=edge">
+
+<title>loading circle</title>
+
+
+
+
+
+
+<style type="text/css">
+html,body {
+	background-color: #fff;
+}
+
+body {
+	margin: 20px;
+}
+
+
+
+.op-btns {
+	margin: 10px 0px;
+}
+</style>
+
+
+<!-- ^^^ loading circle css -->
+<style type="text/css">
+
+#w-simple-loading-circle{
+	width:100px;
+	height:100px;
+	margin:100px auto;
+	position:relative;
+}
+
+#w-simple-loading-circle div{
+	width: 10px;
+	height: 30px;
+	background: black;
+	position: absolute;
+	top: 35px;
+	left: 45px;
+	opacity: 0.05;
+	-webkit-animation: fadeit 1.1s linear infinite;
+	animation: fadeit 1.1s linear infinite;
+}
+
+#w-simple-loading-circle div:nth-child(1){
+	-webkit-transform: rotate(0deg) translate(0, -30px);
+	transform: rotate(0deg) translate(0, -30px);
+	-webkit-animation-delay:0.39s;
+	animation-delay:0.39s;
+}
+#w-simple-loading-circle div:nth-child(2){
+	-webkit-transform: rotate(45deg) translate(0, -30px);
+	transform: rotate(45deg) translate(0, -30px);
+	-webkit-animation-delay:0.52s;
+	animation-delay:0.52s;
+}
+#w-simple-loading-circle div:nth-child(3){
+	-webkit-transform: rotate(90deg) translate(0, -30px);
+	transform: rotate(90deg) translate(0, -30px);
+	-webkit-animation-delay:0.65s;
+	animation-delay:0.65s;
+}
+#w-simple-loading-circle div:nth-child(4){
+	-webkit-transform: rotate(135deg) translate(0, -30px);
+	transform: rotate(135deg) translate(0, -30px);
+	-webkit-animation-delay:0.78s;
+	animation-delay:0.78s;
+}
+#w-simple-loading-circle div:nth-child(5){
+	-webkit-transform: rotate(180deg) translate(0, -30px);
+	transform: rotate(180deg) translate(0, -30px);
+	-webkit-animation-delay:0.91s;
+	animation-delay:0.91s;
+}
+#w-simple-loading-circle div:nth-child(6){
+	-webkit-transform: rotate(225deg) translate(0, -30px);
+	transform: rotate(225deg) translate(0, -30px);
+	-webkit-animation-delay:1.04s;
+	animation-delay:1.04s;
+}
+#w-simple-loading-circle div:nth-child(7){
+	-webkit-transform: rotate(270deg) translate(0, -30px);
+	transform: rotate(270deg) translate(0, -30px);
+	-webkit-animation-delay:1.17s;
+	animation-delay:1.17s;
+}
+#w-simple-loading-circle div:nth-child(8){
+	-webkit-transform: rotate(315deg) translate(0, -30px);
+	transform: rotate(315deg) translate(0, -30px);
+	-webkit-animation-delay:1.3s;
+	animation-delay:1.3s;
+}
+@-webkit-keyframes fadeit{
+	0%{ opacity:1; }
+	100%{ opacity:0;}
+}
+@keyframes fadeit{
+	0%{ opacity:1; }
+	100%{ opacity:0;}
+}
+
+
+</style>
+<!-- $$$ loading circle css -->
+
+
+</head>
+
+<body>
+<script type="text/javascript">
+
+
+</script>
+
+
+
+
+
+<!-- ^^^ loading circle html -->
+<div id="w-simple-loading-circle">
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+</div>
+<!-- $$$ loading circle html -->
+
+
+
+</body>
+</html>

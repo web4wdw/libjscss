@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>select</title>
+
+<script type="text/javascript" src="../src/jquery-1.5.2.js"></script>
+<script type="text/javascript" src="../src/HashFragView.js"></script>
+
+</head>
+<body>
+
+<div style='height: 300px;'></div>
+
+<div>
+	<span onclick='javascript: view.showView("v1")'>v1</span>
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	<span onclick='javascript: view.showView("v2")'>v2</span>
+</div>
+
+<br/>
+
+<div id='v1' style='display: none;'>
+	i am view 1<br/>
+	<div style='height: 300px;'></div>
+	i am view 1
+</div>
+
+
+<div id='v2' style='display: none;'>
+	i am view 2<br/>
+	<div style='height: 300px;'></div>
+	i am view 2
+</div>
+
+<div style='height: 50px;'></div>
+
+
+<br/>
+
+<div>
+	<span onclick='javascript: view.showView("#!v1")'>v1</span>&nbsp;&nbsp;&nbsp;&nbsp;
+	<a href='#!v1?w=w'>v1?w=w</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	<span onclick='javascript: view.showView("v2")'>v2</span>&nbsp;&nbsp;&nbsp;&nbsp;
+	<a href='#!v2?w=w'>v2?x=x</a>&nbsp;&nbsp;&nbsp;&nbsp;
+</div>
+
+
+<div style='height: 100px;'></div>
+
+
+<script type="text/javascript">
+
+	var view = new HashFragView();
+	view.addView("v1", function (obj, times) {
+		if (times == 1) {
+			obj.i = 0;
+		}
+		obj.i += 2;
+		console.log(times);
+		console.log(obj.i);
+		console.log("v1:" + window.location);
+	});
+	view.addView("v2", function (oboj, times) {
+		console.log("v2:" + window.location);
+	});
+	view.init();
+	
+</script>
+
+</body>
+</html>

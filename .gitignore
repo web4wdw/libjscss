@@ -1,0 +1,37 @@
+
+### common ###
+*.tmp
+
+### MicrosoftOffice ###
+~$*.doc*
+~$*.xls*
+*.xlk
+~$*.ppt*
+*.~vsd*
+
+
+### vim ###
+[._]*.sw[a-p]
+.vim
+
+
+### eclipse ###
+.metadata
+.settings/
+.project
+.cproject
+.classpath
+
+### java ##
+WEB-INF/classes
+*.class
+
+
+### vs code ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+
