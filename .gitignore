@@ -2,6 +2,10 @@
 ### common ###
 *.tmp
 
+### js ###
+*.min.js
+*.min.js.map
+
 ### MicrosoftOffice ###
 ~$*.doc*
 ~$*.xls*
