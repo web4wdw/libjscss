@@ -1,3 +1,4 @@
+"use strict";
 
 
 var getUrlPara = function (name, defVal, url) {
