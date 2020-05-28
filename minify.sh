@@ -1,5 +1,5 @@
 #!/bin/bash
-# sudo apt install nodejs npm 
+# sudo apt install -y nodejs npm 
 # npm install uglify-js -g
 # npm install uglifycss -g
 

@@ -1,3 +1,4 @@
+"use strict";
 /*
  * var toptip = new TopTip();
  * toptip.show("msg", 3);
