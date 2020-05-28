@@ -875,60 +875,6 @@
 	
 	
 
-	/**************************************************
-	 * cookie util
-	 **************************************************/
-	SIMPLE.cookie = {
-		get : function(name) {
-			name = document.cookie.match(RegExp("(^| )" + name + "=([^;]*)(;|$)"));
-			return !name ? "" : decodeURIComponent(name[2]);
-		},
-		/**
-		 * set cookie
-		 * @param name - cookie name
-		 * @param value - cookie value
-		 * @param domain - cookie domain. current domain, if not given.
-		 * @param path - cookie path. /, if not given.
-		 * @param expires - expires, hour.
-		 */
-		set : function(name, value, domain, path, expires) {
-			var date, ccc;
-			if (expires) {
-				date = new Date();
-				date.setTime(date.getTime() + 36E5*expires); // hour
-			}
-			var ccc = 
-				name + "=" + encodeURIComponent(value)
-				+ (domain ? "; domain=" + domain : "")
-				+ "; path=" + (path ? path : "/") 
-				+ (expires ? "; expires=" + date.toGMTString() : "")
-			document.cookie = ccc;
-					
-		},
-		/**
-		 * delete the cookie
-		 * @param name - cookie name
-		 * @param domain - cookie domain. current domain, if not given.
-		 * @param path - cookie path. root path(/), if not given.
-		 */
-		del : function(name, domain, path) {
-			document.cookie = name + "=" 
-					+ (domain ? "; domain=" + domain : "")
-					+ "; path=" + (path ? path : "/") 
-					+ "; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-		},
-		/**
-		 * delete all cookie in current domain and root path(/).
-		 */
-		delAll : function() {
-			var n,
-				arr = document.cookie.match(RegExp("([^ ;][^;]*)(?=(=[^;]*)(;|$))",
-					"gi"));
-			for (n in arr)
-				document.cookie = arr[n]
-						+ "=; path=/; expires=Mon, 26 Jul 1997 05:00:00 GMT";
-		}
-	}; // $$$ SIMPLE.cookie 
 	
 	
 	
