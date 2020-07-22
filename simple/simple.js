@@ -16,7 +16,7 @@ var random = function(min, max) {
 /*
 
     (async function() {
-        await sleep(1.5);
+        awaitMS sleep(1.5);
     })();
 
  */
@@ -121,4 +121,72 @@ function dateToStr(date) {
 	str += (hour <= 9 ? '0' + hour : hour) + ':' + (min <= 9 ? '0' + min : min) + ':' + (sec <= 9 ? '0' + sec : sec);
 	return str;
 }
+function dateToMSStr(date) {
+	if (!date) date = new Date();
+	var ms = date.getMilliseconds();
+	var str = dateToStr(date);
+	if (ms >= 100) { return str + "." + ms; }
+	else if (ms >= 10) { return str + ".0" + ms; }
+	else { return str + ".00" + ms; }
+}
 var d2s = dateToStr;
+var d2ms = dateToMSStr;
+
+
+/**
+ * 
+ * @param {Function} func 
+ * @param {int} waitMS - wait ms
+ * @param {boolean} immediate - is execute immediate
+ */
+function debounce(func, waitMS, immediate) {
+	var timeout, args, context, timestamp, result;
+	if (null == waitMS) waitMS = 100;
+
+	function later() {
+		var last = Date.now() - timestamp;
+
+		if (last < waitMS && last >= 0) {
+			timeout = setTimeout(later, waitMS - last);
+		} else {
+			timeout = null;
+			if (!immediate) {
+				result = func.apply(context, args);
+				context = args = null;
+			}
+		}
+	};
+
+	var debounced = function() {
+		context = this;
+		args = arguments;
+		timestamp = Date.now();
+		var callNow = immediate && !timeout;
+		if (!timeout) timeout = setTimeout(later, waitMS);
+		if (callNow) {
+			result = func.apply(context, args);
+			context = args = null;
+		}
+
+		return result;
+	};
+
+	debounced.clear = function() {
+		if (timeout) {
+			clearTimeout(timeout);
+			timeout = null;
+		}
+	};
+
+	debounced.flush = function() {
+		if (timeout) {
+			result = func.apply(context, args);
+			context = args = null;
+
+			clearTimeout(timeout);
+			timeout = null;
+		}
+	};
+
+	return debounced;
+};
