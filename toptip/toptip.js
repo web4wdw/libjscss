@@ -1,4 +1,3 @@
-"use strict";
 /*
  * var toptip = new TopTip();
  * toptip.show("msg", 3);
@@ -23,14 +22,14 @@ var bind = function(elem, eventType, handler, useCapture) {
 
 var show = function(elem) {
 	if (window.jQuery) {
-		$(elem).stop(true, true).fadeIn(600);
+		$(elem).stop().fadeIn(600);
 	} else {
 		elem.style["display"] = "block";
 	}
 };
 var hide = function(elem) {
 	if (window.jQuery) {
-		$(elem).stop(true, true).fadeOut(600);
+		$(elem).stop().fadeOut(600);
 	} else {
 		elem.style["display"] = "none";
 	}
@@ -42,12 +41,12 @@ var hide = function(elem) {
  */
 function TopTip(id, top) {
 	var thiz = this;
-	this.id = id ? id : "simple-top-tip";
+	this.id = id ? id : "w-simple-top-tip";
 	this.top = top || 0;
 	this.timeoutId = null;
 	
 	var html = '' 
-		+	'<div id="{id}" style="display: none; position: fixed; z-index: 9999; opacity: 0.9; filter: alpha(opacity=90); text-align: center; width: 100%; top: 0px; left: 0px;">'
+		+	'<div id="{id}" style="color: #222; font-size: 16px; display: none; position: fixed; z-index: 9999; opacity: 0.9; filter: alpha(opacity=90); text-align: center; width: 100%; top: 0px; left: 0px;">'
 		+	'	<div id="{id}-container" style="display: inline-block; margin: 0px 10px; background-color: #f9edbe; padding: 0px 5px 0px 10px; border: 1px solid #f0c36d; border-radius: 2px; -webkit-border-radius: 2px;-webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.2); box-shadow: 0 2px 4px rgba(0,0,0,0.2);">'
 		+	'		<span id="{id}-msg">msg</span>&nbsp;&nbsp;<span id="{id}-close" style="font-size: 14px; cursor: pointer; font-weight: 700; line-height: 1; color: #000; text-shadow: 0 1px 0 #fff;opacity: 0.4; filter: alpha(opacity=40);">&times;</span>'
 		+	'	</div>'
@@ -80,8 +79,8 @@ TopTip.prototype.show = function(msg, autohidetime, top) {
 
 	document.getElementById(this.id + "-msg").innerHTML = msg;
 	show(thiz.elem);
+	if (this.timeoutId) { clearTimeout(this.timeoutId); this.timeoutId = null; }
 	if (autohidetime > 0) { // auto hide
-		if (this.timeoutId) { clearTimeout(this.timeoutId); this.timeoutId = null; }
 		this.timeoutId = setTimeout(function() {
 			hide(thiz.elem);
 		}, autohidetime*1000);
