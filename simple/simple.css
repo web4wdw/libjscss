@@ -10,8 +10,19 @@ body {
  */
 table {
     border-collapse: collapse;
-    border-spacing: 0;
+    border-spacing: 0px;
 }
+
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+.text-center {
+  text-align: center;
+}
+
 
 input.error,
 select.error,
