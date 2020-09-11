@@ -46,7 +46,7 @@ function TopTip(id, top) {
 	this.timeoutId = null;
 	
 	var html = '' 
-		+	'<div id="{id}" style="color: #222; font-size: 16px; display: none; position: fixed; z-index: 9999; opacity: 0.9; filter: alpha(opacity=90); text-align: center; width: 100%; top: 0px; left: 0px;">'
+		+	'<div id="{id}" style="word-break: break-all; color: #222; font-size: 16px; display: none; position: fixed; z-index: 9999; opacity: 0.9; filter: alpha(opacity=90); text-align: center; width: 100%; top: 0px; left: 0px;">'
 		+	'	<div id="{id}-container" style="display: inline-block; margin: 0px 10px; background-color: #f9edbe; padding: 0px 5px 0px 10px; border: 1px solid #f0c36d; border-radius: 2px; -webkit-border-radius: 2px;-webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.2); box-shadow: 0 2px 4px rgba(0,0,0,0.2);">'
 		+	'		<span id="{id}-msg">msg</span>&nbsp;&nbsp;<span id="{id}-close" style="font-size: 14px; cursor: pointer; font-weight: 700; line-height: 1; color: #000; text-shadow: 0 1px 0 #fff;opacity: 0.4; filter: alpha(opacity=40);">&times;</span>'
 		+	'	</div>'
