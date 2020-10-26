@@ -14,11 +14,9 @@ var random = function(min, max) {
 };
 
 /*
-
     (async function() {
         awaitMS sleep(1.5);
     })();
-
  */
 function sleep(sec) {
     return new Promise(resolve => setTimeout(resolve, 1000 * sec));
@@ -131,6 +129,17 @@ function dateToMSStr(date) {
 }
 var d2s = dateToStr;
 var d2ms = dateToMSStr;
+
+function timeToStr(date) {
+	if (!date) date = new Date();
+	var hour = date.getHours();
+	var min = date.getMinutes();
+	var sec = date.getSeconds();
+	var str = '';
+	str += (hour <= 9 ? '0' + hour : hour) + ':' + (min <= 9 ? '0' + min : min) + ':' + (sec <= 9 ? '0' + sec : sec);
+	return str;
+}
+var t2s = timeToStr;
 
 
 /**
