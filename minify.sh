@@ -1,6 +1,6 @@
 #!/bin/bash
 # sudo apt install -y nodejs npm 
-# npm install uglify-js -g
+# npm install uglify-es -g
 # npm install uglifycss -g
 
 cd "$(dirname "$0")"
