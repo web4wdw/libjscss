@@ -199,3 +199,20 @@ function debounce(func, waitMS, immediate) {
 
 	return debounced;
 };
+
+
+
+
+function __get_module_obj__() {
+	return {
+		d2s, d2ms, t2s,
+		debounce
+	}
+}
+if ( typeof module === 'object' && typeof module.exports === 'object' ) { // CommonJS
+	module.exports = __get_module_obj__();
+} else if ( typeof define === 'function' && define.amd) { // AMD
+	define( [], function () {
+		return __get_module_obj__();
+	} );
+}
