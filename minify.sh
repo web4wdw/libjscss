@@ -11,7 +11,7 @@ minjs() {
 	local dir=$(dirname $file)
 	local basename=$(basename  -s .js $file)
 	pushd $dir 1>/dev/null
-	uglifyjs --source-map filename=wdw -c -m -o "$basename.min.js" "$(basename $file)"
+	uglifyjs --source-map url="$basename.min.js.map" -c -m -o "$basename.min.js" "$(basename $file)"
 	popd 1>/dev/null
 }
 
