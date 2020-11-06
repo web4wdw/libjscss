@@ -6,10 +6,13 @@
 cd "$(dirname "$0")"
 
 minjs() {
+	echo minjs $1
 	local file=$1
 	local dir=$(dirname $file)
 	local basename=$(basename  -s .js $file)
-	uglifyjs --source-map -c -m -o "$dir/$basename.min.js" "$file"
+	pushd $dir 1>/dev/null
+	uglifyjs --source-map filename=wdw -c -m -o "$basename.min.js" "$(basename $file)"
+	popd 1>/dev/null
 }
 
 minjs mask/mask.js
