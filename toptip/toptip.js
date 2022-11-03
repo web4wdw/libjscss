@@ -20,20 +20,6 @@ var bind = function(elem, eventType, handler, useCapture) {
 	else { elem.attachEvent("on" + eventType, handler); }
 };
 
-var show = function(elem) {
-	if (window.jQuery) {
-		$(elem).stop().fadeIn(600);
-	} else {
-		elem.style["display"] = "block";
-	}
-};
-var hide = function(elem) {
-	if (window.jQuery) {
-		$(elem).stop().fadeOut(600);
-	} else {
-		elem.style["display"] = "none";
-	}
-};
 
 /**
  * @param id - element id
@@ -44,6 +30,7 @@ function TopTip(id, top) {
 	this.id = id ? id : "w-simple-top-tip";
 	this.top = top || 0;
 	this.timeoutId = null;
+	this.animate = true;
 	
 	var html = '' 
 		+	'<div id="{id}" style="word-break: break-all; color: #222; font-size: 16px; display: none; position: fixed; z-index: 9999; opacity: 0.9; filter: alpha(opacity=90); text-align: center; width: 100%; top: 0px; left: 0px;">'
@@ -59,7 +46,8 @@ function TopTip(id, top) {
 	
 	bind(document.getElementById(this.id + "-close"), "click", function() {
 		if (thiz.timeoutId) { clearTimeout(thiz.timeoutId); thiz.timeoutId = null; }
-		hide(thiz.elem);
+		//hide(thiz.elem);
+		thiz.hide0();
 	});
 	
 	
@@ -78,19 +66,38 @@ TopTip.prototype.show = function(msg, autohidetime, top) {
 	if (top >= 0) this.elem.style["top"] = top + "px";
 
 	document.getElementById(this.id + "-msg").innerHTML = msg;
-	show(thiz.elem);
+	//show(thiz.elem);
+	thiz.show0();
 	if (this.timeoutId) { clearTimeout(this.timeoutId); this.timeoutId = null; }
 	if (autohidetime > 0) { // auto hide
 		this.timeoutId = setTimeout(function() {
-			hide(thiz.elem);
+			//hide(thiz.elem);
+			thiz.hide0();
 		}, autohidetime*1000);
 	}
 	return this;
 };
 TopTip.prototype.hide = function() {
 	if (this.timeoutId) { clearTimeout(this.timeoutId); this.timeoutId = null; }
-	hide(this.elem);
+	//hide(this.elem);
+	this.hide0();
 	return this;
+};
+
+
+TopTip.prototype.show0 = function() {
+	if (window.jQuery && this.animate) {
+		$(this.elem).stop().fadeIn(600);
+	} else {
+		this.elem.style["display"] = "block";
+	}
+};
+TopTip.prototype.hide0 = function() {
+	if (window.jQuery && this.animate) {
+		$(this.elem).stop().fadeOut(600);
+	} else {
+		this.elem.style["display"] = "none";
+	}
 };
 
 window.TopTip = TopTip;
