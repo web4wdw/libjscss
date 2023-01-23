@@ -105,8 +105,14 @@ var triggerEvent = function (elem, type, bubbles, cancelable) {
 }
 
 
+/**
+ * yyyy-MM-dd hh:mm:ss
+ */
 function dateToStr(date) {
+	if (Number.isInteger(date)) { date = new Date(date); } 
 	if (!date) date = new Date();
+	var ms = date.getMilliseconds();
+
 	var d = date.getDate();
 	var m = date.getMonth() + 1; //Month from 0 to 11
 	var y = date.getFullYear();
@@ -119,9 +125,14 @@ function dateToStr(date) {
 	str += (hour <= 9 ? '0' + hour : hour) + ':' + (min <= 9 ? '0' + min : min) + ':' + (sec <= 9 ? '0' + sec : sec);
 	return str;
 }
+/**
+ * yyyy-MM-dd hh:mm:ss.SSS
+ */
 function dateToMSStr(date) {
+	if (Number.isInteger(date)) { date = new Date(date); } 
 	if (!date) date = new Date();
 	var ms = date.getMilliseconds();
+
 	var str = dateToStr(date);
 	if (ms >= 100) { return str + "." + ms; }
 	else if (ms >= 10) { return str + ".0" + ms; }
@@ -130,7 +141,11 @@ function dateToMSStr(date) {
 var d2s = dateToStr;
 var d2ms = dateToMSStr;
 
+/**
+ * hh:mm:ss
+ */
 function timeToStr(date) {
+	if (Number.isInteger(date)) { date = new Date(date); } 
 	if (!date) date = new Date();
 	var hour = date.getHours();
 	var min = date.getMinutes();
