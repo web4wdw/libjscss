@@ -215,7 +215,39 @@ function debounce(func, waitMS, immediate) {
 	return debounced;
 };
 
+/**
+ * 
+ * @param {*} date Date or millisecond of epoch
+ */
+function doWorkOnTime(startTime, fn) {
+	var context = this;
+	var args = new Array();
+    for(var i = 2; i < arguments.length; ++i) {
+		args.push(arguments[i]);
+    }
+	if (startTime instanceof Date) {
+		startTime = startTime.getTime();
+	} else if (Number.isInteger(startTime)) {
 
+	} else {
+		throw `illegal start time: ${startTime}`
+	}
+	let now = Date.now();
+
+	console.log(`doWorkOnTime: will work at ${dateToMSStr(startTime)}, now is ${dateToMSStr(now)}`);
+
+	setTimeout(() => {
+		console.log("doWorkOnTime: near work time, now is ", dateToMSStr());
+		for (let i = 0; i <= 1234567890123; ++i) {
+			now = new Date();
+			if (now.getTime() >= startTime) {
+				console.log(`doWorkOnTime: begin work at ${dateToMSStr(now)}, i is ${i}`);
+				break;
+			}
+		}
+		fn.apply(context, args.splice(0,2));
+	}, startTime - now - 1000*2); // 提前N秒开始
+}
 
 
 function __get_module_obj__() {
