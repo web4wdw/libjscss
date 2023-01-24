@@ -31,6 +31,9 @@
 	console.log("one");
 	doWorkOnTime(Date.now() + 3000, (...args) => {
 		console.log(args);
+		console.log(dateToMSStr());
+		sleepMS(1000);
+		console.log(dateToMSStr());
 	}, 1, "one");
 </script>
 

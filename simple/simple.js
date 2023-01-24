@@ -22,6 +22,24 @@ function sleep(sec) {
     return new Promise(resolve => setTimeout(resolve, 1000 * sec));
 }
 
+/**
+ * spin
+ * @param {Integer} ms 
+ */
+function sleepMS(ms) {
+	if (ms <= 0) return;
+	if (ms >= 1000*3) {
+		console.warn("sleep too long time: ", ms);
+	}
+	let startTime = Date.now();
+	let now = startTime;
+	for (let i = 0; ; ++i) {
+		now = Date.now();
+		if (now - startTime >= ms) {
+			break;
+		}
+	}
+}
 
 var cookie = {
 	get : function(name) {
