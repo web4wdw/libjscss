@@ -152,12 +152,44 @@ function parseQQQuote(sym, str) {
     return info;
 }
 
+/**
+ * await getQuoteInfos("hk00700", "qq");
+ * 
+ * @param {*} syms hk00700 sh000001
+ * @param {*} src  qq/sina
+ * @returns 
+ */
 function getQuoteInfos(syms, src) {
     syms = stdSecuritySymbols(syms, src);
     var isQQ = src != "sina";
     var urlPrefix = isQQ ? "https://qt.gtimg.cn/q=" : "https://hq.sinajs.cn/list=";
     
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
+        let url = urlPrefix + syms.join(",");
+        fetch(url).then(rsp => rsp.json()).then(data => {
+            let infos = [];
+            if (data.startsWith("v_pv_none_match=")) {
+                resolve(infos);
+                return;
+            }
+            //console.log(data);
+            data.split(/[\r\n;]+/).forEach((v) => {
+                v = v.trim();
+                if (v.length == 0) return;
+                var sym = v.replace(/(var hq_str_|v_)/g, "").replace(/=[^=]*/,'').replace(/["\r\n]/g, "");
+                var quoteStr = v.replace(/[^=]*=/,'').replace(/["\r\n]/g, "");
+                var info = isQQ ? parseQQQuote(sym, quoteStr) : parseSinaQuote(sym, quoteStr);
+                infos.push(info);
+            });
+            resolve(infos);
+        }).catch((err) => {
+            console.warn("get quote info failed", err, arguments);
+            reject();
+        });
+
+        return;
+
+
         $.ajax({
             url: urlPrefix + syms.join(","),
             success: function(data) {
@@ -177,7 +209,7 @@ function getQuoteInfos(syms, src) {
                 });
                 resolve(infos);
             }
-        }).fail(function() {
+        }).fail(() => {
             console.warn("get quote info failed", arguments);
             reject();
         });
