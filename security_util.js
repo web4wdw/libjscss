@@ -166,7 +166,7 @@ function getQuoteInfos(syms, src) {
     
     return new Promise(async (resolve, reject) => {
         let url = urlPrefix + syms.join(",");
-        fetch(url).then(rsp => rsp.json()).then(data => {
+        fetch(url).then(data => {
             let infos = [];
             if (data.startsWith("v_pv_none_match=")) {
                 resolve(infos);
