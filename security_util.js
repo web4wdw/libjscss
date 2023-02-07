@@ -15,7 +15,7 @@
  * quote info:
  *   sym
  *   name
- *   prevClose
+ *   prevClose # 昨收
  *   now
  *   min
  *   max
@@ -75,7 +75,7 @@ function parseSinaQuote(sym, str) {
     arr.forEach((val, idx) => {
         debugStr.push(idx + " " + val);
     });
-    window.IsDebug && console.log("------ " + sym + " ------\n" + debugStr.join("; "));
+    globalThis.IsDebug && console.log("------ " + sym + " ------\n" + debugStr.join("; "));
     if (sym.startsWith("hf_")) { // 期货
         info.name = arr[13];
         info.prevClose = parseFloat(arr[7]); // 昨收
@@ -106,7 +106,7 @@ function parseSinaQuote(sym, str) {
     info.percent = nowPercent;
     info.percentStr = nowPercent >= 0 ? "+" + nowPercent + "%" : nowPercent + "%"; 
 
-    window.IsDebug && console.log(info);
+    globalThis.IsDebug && console.log(info);
     return info;
 }
 
@@ -122,7 +122,7 @@ function parseQQQuote(sym, str) {
     arr.forEach((val, idx) => {
         debugStr.push(idx + " " + val);
     });
-    window.IsDebug && console.log("------ " + sym + " ------\n" + debugStr.join("; "));
+    globalThis.IsDebug && console.log("------ " + sym + " ------\n" + debugStr.join("; "));
     if(sym.startsWith("hk") || sym.startsWith("r_hk")) {
         info.name = arr[1];
         info.prevClose = parseFloat(arr[4]); // 昨收
@@ -148,7 +148,7 @@ function parseQQQuote(sym, str) {
     info.percent = nowPercent;
     info.percentStr = nowPercent >= 0 ? "+" + nowPercent + "%" : nowPercent + "%"; 
 
-    window.IsDebug && console.log(info);
+    globalThis.IsDebug && console.log(info);
     return info;
 }
 
