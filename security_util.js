@@ -166,7 +166,9 @@ function getQuoteInfos(syms, src) {
     
     return new Promise(async (resolve, reject) => {
         let url = urlPrefix + syms.join(",");
-        fetch(url).then(rsp => rsp.text()).then(data => {
+        fetch(url).then(rsp => rsp.arrayBuffer()).then(data => {
+            const decoder = new TextDecoder("GBK");
+            data = decoder.decode(data);
             let infos = [];
             if (data.startsWith("v_pv_none_match=")) {
                 resolve(infos);
