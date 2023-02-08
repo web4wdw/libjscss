@@ -28,8 +28,9 @@
 <script type="text/javascript" charset="UTF-8" src="simple.js"></script>
 
 <script type="text/javascript" charset="UTF-8">
+	SIMPLE_IS_DEBUG = true;
 	console.log("one");
-	doWorkOnTime(Date.now() + 3000, (...args) => {
+	doWorkOnTime(Date.now() + 1000*60*60*4 + 1234, (...args) => {
 		console.log(args);
 		console.log(dateToMSStr());
 		sleepMS(1000);

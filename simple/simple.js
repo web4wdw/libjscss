@@ -1,4 +1,6 @@
+"use strict";
 
+globalThis.SIMPLE_IS_DEBUG = false;
 
 var getUrlPara = function (name, defVal, url) {
     var val = (new RegExp('(^|\\?|&|#)' + name+ '=([^&#]*)').exec(url || location.href)||[,,undefined===defVal ? '' : defVal])[2];
@@ -238,7 +240,8 @@ function debounce(func, waitMS, immediate) {
  * @param {*} date Date or millisecond of epoch
  */
 function doWorkOnTime(startTime, fn) {
-	var context = this;
+	var funcname = doWorkOnTime.name;
+	var thiz = this;
 	var args = new Array();
     for(var i = 2; i < arguments.length; ++i) {
 		args.push(arguments[i]);
@@ -250,21 +253,52 @@ function doWorkOnTime(startTime, fn) {
 	} else {
 		throw `illegal start time: ${startTime}`
 	}
-	let now = Date.now();
 
-	console.log(`doWorkOnTime: will work at ${dateToMSStr(startTime)}, now is ${dateToMSStr(now)}`);
+	// here startTime is millisecond
+	console.log(`${funcname}:${dateToMSStr()}: will work at ${dateToMSStr(startTime)}`);
 
-	setTimeout(() => {
-		console.log("doWorkOnTime: near work time, now is ", dateToMSStr());
-		for (let i = 0; i <= 1234567890123; ++i) {
-			now = new Date();
-			if (now.getTime() >= startTime) {
-				console.log(`doWorkOnTime: begin work at ${dateToMSStr(now)}, i is ${i}`);
-				break;
+
+	const ScheduleInterval = 1000*60; // 1分钟
+	//const ScheduleInterval = 1000*10; // test code
+	SIMPLE_IS_DEBUG && console.log(`${funcname}:${dateToMSStr()}: ScheduleInterval: ${ScheduleInterval}`);
+
+	function isUseInterval() {
+		const diff = startTime - Date.now();
+		return diff > 2*ScheduleInterval; // 大于2倍的调度周期的时候，才使用interval
+	}
+	function lastSchedule() { // 进行最后的调度
+		SIMPLE_IS_DEBUG && console.log(`${funcname}:${dateToMSStr()}: schedule`);
+		let now = Date.now(); // ms
+		setTimeout(() => {
+			console.log(`${funcname}:${dateToMSStr()}: near work time`);
+			for (let i = 0; i <= 1234567890123; ++i) {
+				now = Date.now();
+				if (now >= startTime) {
+					console.log(`${funcname}:${dateToMSStr()}: begin work now. dead loop count: ${i}`);
+					break;
+				}
 			}
-		}
-		fn.apply(context, args.splice(0,2));
-	}, startTime - now - 1000*2); // 提前N秒开始
+			fn.apply(thiz, args.splice(0,2));
+		}, startTime - now - 1000*2); // 提前N秒开始
+	}
+
+
+	// 先采用setInterval调度到，接近目标的时间。避免笔记本，待机恢复后导致时间偏差过大。
+
+	if (isUseInterval()) { 
+		const intervalID = setInterval(() => {
+			if (isUseInterval()) { // use interval
+				// do nothing
+				SIMPLE_IS_DEBUG && console.log(`${funcname}:${dateToMSStr()}: in interval`);
+			} else {
+				clearInterval(intervalID);
+				lastSchedule(); // 接近时间了，开始最后的调度。
+			}
+		}, ScheduleInterval); 
+	} else {
+		lastSchedule();
+	}
+
 }
 
 
