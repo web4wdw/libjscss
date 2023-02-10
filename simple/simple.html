@@ -30,12 +30,12 @@
 <script type="text/javascript" charset="UTF-8">
 	SIMPLE_IS_DEBUG = true;
 	console.log("one");
-	doWorkOnTime(Date.now() + 1000*60*60*4 + 1234, (...args) => {
+	runAtTime(Date.now() + 1000*5, (...args) => {
 		console.log(args);
 		console.log(dateToMSStr());
 		sleepMS(1000);
 		console.log(dateToMSStr());
-	}, 1, "one");
+	}, "args", 1, 2, 3, 4, 5);
 </script>
 
 </body>

@@ -239,8 +239,8 @@ function debounce(func, waitMS, immediate) {
  * 
  * @param {*} date Date or millisecond of epoch
  */
-function doWorkOnTime(startTime, fn) {
-	var funcname = doWorkOnTime.name;
+function runAtTime(startTime, fn) {
+	var funcname = runAtTime.name;
 	var thiz = this;
 	var args = new Array();
     for(var i = 2; i < arguments.length; ++i) {
@@ -278,7 +278,7 @@ function doWorkOnTime(startTime, fn) {
 					break;
 				}
 			}
-			fn.apply(thiz, args.splice(0,2));
+			fn.apply(thiz, args);
 		}, startTime - now - 1000*2); // 提前N秒开始
 	}
 
