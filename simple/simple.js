@@ -25,7 +25,7 @@ function sleep(sec) {
 }
 
 /**
- * spin
+ * spin CPU sleep
  * @param {Integer} ms 
  */
 function sleepMS(ms) {
@@ -268,7 +268,7 @@ function runAtTime(startTime, fn) {
 	}
 	function lastSchedule() { // 进行最后的调度
 		let now = Date.now(); // ms
-		const lastTimeout = startTime - now - 1000*2;
+		const lastTimeout = startTime - now - 1000*2; // setTimeout提前N秒
 		SIMPLE_IS_DEBUG && console.log(`${funcname}:${dateToMSStr()}: schedule, timeout: ${lastTimeout}`);
 		setTimeout(() => {
 			console.log(`${funcname}:${dateToMSStr()}: near work time`);
@@ -280,13 +280,13 @@ function runAtTime(startTime, fn) {
 				}
 			}
 			fn.apply(thiz, args);
-		}, lastTimeout); // 提前N秒开始
+		}, lastTimeout); // 提前N秒
 	}
 
 
-	// 先采用setInterval调度到，接近目标的时间。避免笔记本，待机恢复后导致时间偏差过大。
 
 	if (isUseInterval()) { 
+		// 先采用setInterval调度到，接近目标的时间。避免笔记本待机恢复后导致时间偏差过大。
 		const intervalID = setInterval(() => {
 			if (isUseInterval()) { // use interval
 				// do nothing
