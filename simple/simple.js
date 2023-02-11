@@ -267,8 +267,9 @@ function runAtTime(startTime, fn) {
 		return diff > 2*ScheduleInterval; // 大于2倍的调度周期的时候，才使用interval
 	}
 	function lastSchedule() { // 进行最后的调度
-		SIMPLE_IS_DEBUG && console.log(`${funcname}:${dateToMSStr()}: schedule`);
 		let now = Date.now(); // ms
+		const lastTimeout = startTime - now - 1000*2;
+		SIMPLE_IS_DEBUG && console.log(`${funcname}:${dateToMSStr()}: schedule, timeout: ${lastTimeout}`);
 		setTimeout(() => {
 			console.log(`${funcname}:${dateToMSStr()}: near work time`);
 			for (let i = 0; i <= 1234567890123; ++i) {
@@ -279,7 +280,7 @@ function runAtTime(startTime, fn) {
 				}
 			}
 			fn.apply(thiz, args);
-		}, startTime - now - 1000*2); // 提前N秒开始
+		}, lastTimeout); // 提前N秒开始
 	}
 
 
