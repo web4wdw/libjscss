@@ -235,11 +235,15 @@ function debounce(func, waitMS, immediate) {
 	return debounced;
 };
 
+
+function runAtTime() {
+	runAtTime_Interval.apply(this, arguments);
+}
 /**
  * 
  * @param {*} date Date or millisecond of epoch
  */
-function runAtTime(startTime, fn) {
+function runAtTime_Interval(startTime, fn) {
 	var funcname = runAtTime.name;
 	var thiz = this;
 	var args = new Array();
@@ -300,6 +304,41 @@ function runAtTime(startTime, fn) {
 		lastSchedule();
 	}
 
+}
+
+/**
+ * 
+ * @param {*} date Date or millisecond of epoch
+ */
+function runAtTime_Timeout(startTime, fn) {
+	var funcname = runAtTime.name;
+	var context = this;
+	var args = new Array();
+    for(var i = 2; i < arguments.length; ++i) {
+		args.push(arguments[i]);
+    }
+	if (startTime instanceof Date) {
+		startTime = startTime.getTime();
+	} else if (Number.isInteger(startTime)) {
+
+	} else {
+		throw `illegal start time: ${startTime}`
+	}
+	let now = Date.now();
+
+	console.log(`${funcname}:${dateToMSStr()}: will work at ${dateToMSStr(startTime)}`);
+
+	setTimeout(() => {
+		console.log("{runAtTime}: near work time, now is ", dateToMSStr());
+		for (let i = 0; i <= 1234567890123; ++i) {
+			now = new Date();
+			if (now.getTime() >= startTime) {
+				console.log(`${runAtTime}:${dateToMSStr()}: begin work at ${dateToMSStr(now)}, loop count ${i}`);
+				break;
+			}
+		}
+		fn.apply(context, args);
+	}, startTime - now - 1000*2); // 提前N秒开始
 }
 
 
