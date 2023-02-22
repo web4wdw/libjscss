@@ -26,6 +26,19 @@
 
 
 
+function symstr2array(symsStr) {
+    let syms = [];
+    symsStr.split(/[\r\n]+/).forEach(v => {
+        v = v.replace(/(#|\/\/).*/, "");
+        v = v.trim();
+        if (v.length > 0) {
+            syms.push(v);
+        }
+    });
+    return syms;
+}
+
+
 
 /**
  * 
@@ -38,14 +51,7 @@ function stdSecuritySymbols(syms, src) {
     var symArr = syms;
 
     if (typeof syms === "string") { // split to array
-        symArr = [];
-        syms.split(/[\r\n]+/).forEach(v => {
-            v = v.replace(/(#|\/\/).*/, "");
-            v = v.trim();
-            if (v.length > 0) {
-                symArr.push(v);
-            }
-        });
+        symArr = symstr2array(syms);
     }
 
     var stdArr = [];
