@@ -38,6 +38,7 @@ function stdSecuritySymbols(syms, src) {
     var symArr = syms;
 
     if (typeof syms === "string") { // split to array
+        symArr = [];
         syms.split(/[\r\n]+/).forEach(v => {
             v = v.replace(/(#|\/\/).*/, "");
             v = v.trim();
