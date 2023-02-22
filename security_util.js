@@ -25,10 +25,30 @@
  */
 
 
+
+
+/**
+ * 
+ * @param {Array or String} syms. split to array if it is string.
+ * @param {Stirng} src: sina/qq
+ * @returns 
+ */
 function stdSecuritySymbols(syms, src) {
     var isQQ = src != "sina";
-    var arr = [];
-    syms.forEach(v => {
+    var symArr = syms;
+
+    if (typeof syms === "string") { // split to array
+        syms.split(/[\r\n]+/).forEach(v => {
+            v = v.replace(/(#|\/\/).*/, "");
+            v = v.trim();
+            if (v.length > 0) {
+                symArr.push(v);
+            }
+        });
+    }
+
+    var stdArr = [];
+    symArr.forEach(v => {
         if (v.startsWith("#") || v.startsWith("//")) {
             return;
         }
@@ -37,9 +57,9 @@ function stdSecuritySymbols(syms, src) {
         } 
         else {
         }
-        arr.push(v);
+        stdArr.push(v);
     });
-    return arr;
+    return stdArr;
 }
 
 /**
