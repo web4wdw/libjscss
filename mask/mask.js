@@ -25,7 +25,7 @@ var bind = function(elem, eventType, handler, useCapture) {
 };
 
 var hide = function(elem, timeoutMS) {
-	if (window.jQuery) {
+	if (window.jQuery && timeoutMS !== 0) {
 		$(elem).finish().fadeOut(timeoutMS > 0 ? timeoutMS : 400);
 	} else {
 		elem.style["display"] = "none";
