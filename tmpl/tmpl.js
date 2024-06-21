@@ -4,12 +4,17 @@ if(!window.console) window.console={};if(!window.console.log) window.console.log
  
 /**
  * 
- * 1. <%= expression %> 和 <% code block %>
- * 2. if you want to output "openTag" or "closeTag", use entity: <&#37; &#37;> 
- * 3. str.replace(/"/g, "&quot;");  // tag attribute
+ * - <%= expression %> 和 <% code block %>
+ * - if you want to output "openTag" or "closeTag", use entity: <&#37; &#37;> 
+ * - str.replace(/"/g, "&quot;");  // tag attribute
  *    str.replace(/>/g, "&gt;").replace(/</g, "&lt;"); // text node
  *  
  *  <script id="id" type="text/tmpl"></script>
+ * 
+ * 
+ * 原理
+ * 	- 构造一个函数: Function() constructor
+ *  - obj.name 作为 Funciton()的args
  *         
  *         
  * @param str  HTML id or template string
@@ -81,7 +86,7 @@ if(!window.console) window.console={};if(!window.console.log) window.console.log
 			})(str);
 			
 			for (var n in obj) {argNames.push(n);argVals.push(obj[n]);}	
-			fn = new Function(argNames, "var __wdw571__ = '';\n __wdw571__ += '" + formatTmpl + "';\n return s;");
+			fn = new Function(argNames, "var __wdw571__ = '';\n __wdw571__ += '" + formatTmpl + "';\n return __wdw571__;"); // 构造函数
 			isCache && (cache[str] = {parsefn: fn, argNames: argNames});
 		}
 
