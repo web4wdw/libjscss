@@ -4,7 +4,9 @@ if(!window.console) window.console={};if(!window.console.log) window.console.log
  
 /**
  * 
- * - <%= expression %> 和 <% code block %>
+ * - <%= expression %> 
+ * - <% code block %>
+ * 	+ tmplPrint(str): print str to tmpl result. same as <%= str %>
  * - if you want to output "openTag" or "closeTag", use entity: <&#37; &#37;> 
  * - str.replace(/"/g, "&quot;");  // tag attribute
  *    str.replace(/>/g, "&gt;").replace(/</g, "&lt;"); // text node
@@ -86,7 +88,7 @@ if(!window.console) window.console={};if(!window.console.log) window.console.log
 			})(str);
 			
 			for (var n in obj) {argNames.push(n);argVals.push(obj[n]);}	
-			fn = new Function(argNames, "var __wdw571__ = '';\n __wdw571__ += '" + formatTmpl + "';\n return __wdw571__;"); // 构造函数
+			fn = new Function(argNames, "var __wdw571__ = '';\nfunction tmplPrint(txt){__wdw571__ += txt;}\n __wdw571__ += '" + formatTmpl + "';\n return __wdw571__;"); // 构造函数
 			isCache && (cache[str] = {parsefn: fn, argNames: argNames});
 		}
 

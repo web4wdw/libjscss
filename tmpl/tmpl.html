@@ -43,9 +43,10 @@ body {
 	<% for (var i = 0; i < 3; ++i) { %>
 		loop: <%= i %>
 		wdw
-		wdw<%
-			var str = "one'two" + 'three' + '\r\nNL';
+		wdw begin<%
+			var str = " in code block: one'two" + 'three' + '\r\nNL';
 			console.log(str);
+			tmplPrint(str);
 		%>
 	<% } %>
 	two " two
