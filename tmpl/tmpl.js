@@ -64,8 +64,8 @@ if(!window.console) window.console={};if(!window.console.log) window.console.log
 					})
 					.replace(/'/g, "\x04").replace(/\n/g, "\x05").replace(/\\/g, "\x06") // replace HTML special char
 					
-					.replace(new RegExp(openTag + "=((.|\n)*?)" + closeTag, "g"), "';\n s += $1;\n s += '") // <%= expression %>
-					.split(openTag).join("';\n").split(closeTag).join("\n s += '") // <% code block %>
+					.replace(new RegExp(openTag + "=((.|\n)*?)" + closeTag, "g"), "';\n __wdw571__ += $1;\n __wdw571__ += '") // <%= expression %>
+					.split(openTag).join("';\n").split(closeTag).join("\n __wdw571__ += '") // <% code block %>
 					
 					.replace(/[\x00\x01\x02\x04\x05\x06]/g, function(c) { // restore special char
 						if (c == "\x00") return "'";
@@ -81,7 +81,7 @@ if(!window.console) window.console={};if(!window.console.log) window.console.log
 			})(str);
 			
 			for (var n in obj) {argNames.push(n);argVals.push(obj[n]);}	
-			fn = new Function(argNames, "var s = '';\n s += '" + formatTmpl + "';\n return s;");
+			fn = new Function(argNames, "var __wdw571__ = '';\n __wdw571__ += '" + formatTmpl + "';\n return s;");
 			isCache && (cache[str] = {parsefn: fn, argNames: argNames});
 		}
 
